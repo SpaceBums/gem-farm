@@ -33,7 +33,7 @@ export default function useWallet() {
   };
 
   const setWallet = (newWallet: string | null, network: string) => {
-    console.log('attempting to set wallet', newWallet, network.substr(0, 20));
+    console.log('attempting to set wallet', newWallet, network);
 
     if (!newWallet) {
       console.log('removing active wallet');
@@ -53,11 +53,12 @@ export default function useWallet() {
         console.log(
           'wallet successfully connected',
           newWallet,
-          network.substr(0, 20)
+          network
         );
       })
-      .catch(() => {
-        console.log('oh no, failed to connect to wallet, try again');
+      .catch((e: Error) => {
+        console.log('Failed to connect to wallet, try again');
+        console.log(e);
         walletClass.value = null;
         walletAdapter.value = null;
       });
